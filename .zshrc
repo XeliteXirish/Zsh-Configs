@@ -134,3 +134,5 @@ done
 #Adds auto upgrade system
 source $ZDOTDIR/zshupdate
 
+# My aliases
+source $ZDOTDIR/zsh_aliases.sh
