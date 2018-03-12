@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Support 256 color
+export TERM="xterm-256color"
+
 #Checks for $ZDOTDIR
 if [[ -z $ZDOTDIR ]]; then
     export ZDOTDIR=$HOME
