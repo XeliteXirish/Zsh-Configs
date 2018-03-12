@@ -134,5 +134,7 @@ done
 #Adds auto upgrade system
 source $ZDOTDIR/zshupdate
 
+archey;
+
 # My aliases
 source $ZDOTDIR/zsh_aliases.sh
