@@ -136,5 +136,9 @@ source $ZDOTDIR/zshupdate
 
 archey;
 
+if [[ -z "${NVM_DIR}" ]]; then
+    source $NVM_DIR/nvm.sh
+fi
+
 # My aliases
 source $ZDOTDIR/zsh_aliases.sh

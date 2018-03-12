@@ -6,6 +6,10 @@ alias updatePull='upgrade_zsh'
 alias ports='netstat -tulanp'
 alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers'
 
+cdm() {
+    mkdir "$@" && cd "$@" 
+}
+
 # do not delete / or prompt if deleting more than 3 files at a time #
 alias rm='rm -I --preserve-root'
 
