@@ -40,7 +40,7 @@ fi
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+CASE_SENSITIVE="false"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -78,7 +78,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo rsync zsh-autosuggestions zsh-syntax-highlighting wd)
+plugins=(git npm Z sudo rsync zsh-autosuggestions zsh-syntax-highlighting wd)
 
 source $ZSH/oh-my-zsh.sh
 
