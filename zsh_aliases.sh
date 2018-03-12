@@ -1,6 +1,7 @@
 # Had to be done
 alias fucking='sudo'
 alias reload='echo "Reloading ZSH file now..." && source $ZDOTDIR/.zshrc'
+alias updatePull='upgrade_zsh'
 
 alias ports='netstat -tulanp'
 alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers'
