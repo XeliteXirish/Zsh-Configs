@@ -3,6 +3,10 @@ alias fucking='sudo'
 alias reload='echo "Reloading ZSH file now..." && source $ZDOTDIR/.zshrc'
 alias githubUpdate='upgrade_zsh' // Updates zsh from github
 
+# Custom Vim
+alias vimInstall='echo "Installing custom vim config" && sh -c "$(curl -fsSL https://raw.githubusercontent.com/XeliteXirish/Vim-Configs/master/install.sh)"'
+alias vimUpdate='echo "Updating custom Vim Config" && cd $HOME/.vim && git pull'
+
 alias ports='netstat -tulanp'
 alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers'
 
