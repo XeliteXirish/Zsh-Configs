@@ -102,7 +102,7 @@ alias ngrok-sh='$ZDOTDIR/scripts/ngrok http -auth "admin:admin"'
 alias ngrok-tcp='$ZDOTDIR/scripts/ngrok tcp'
 
 # Git Leaks
-alias gitleaks='$ZDORDIR/scripts/gitleaks'
+alias gitleaks='$ZDOTDIR/scripts/gitleaks'
 alias gitleaks-u='$ZDOTDIR/scripts/gitleaks -u'
 alias gitleaks-org='$ZDOTDIR/scripts/gitleaks -o'
 
@@ -112,3 +112,6 @@ alias quick-scan='$ZDOTDIR/scripts/quick-scan.sh'
 # Tmux session
 alias tm-save='echo "Saving.." && $ZDOTDIR/scripts/tmux-session save'
 alias tm-restore='echo "Restoring.." && $ZDOTDIR/scripts/tmux-session restore'
+
+# Update all apt keys
+alias update-keys='$ZDOTDIR/scripts/updateKeys.sh'
