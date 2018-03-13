@@ -88,4 +88,10 @@ gcomp() {
     git add . && git commit -m "$@" && git push
 }
 
-
+# Transmission (Assuming username and password = transmission
+alias tlist='transmission-remote -n "transmission:transmission" -l'
+alias tstats='transmission-remote -n "transmission:transmission" -st'
+alias tfullstats='transmission-remote -n "transmission:transmission" -si'
+alias tstopall='transmission-remote -n "transmission:transmission" -S'
+alias tstartall='transmission-remote -n "transmission:transmission" -s'
+alias tadd='transmission-remote -n "transmission:transmission" -a'
