@@ -95,3 +95,20 @@ alias tfullstats='transmission-remote -n "transmission:transmission" -si'
 alias tstopall='transmission-remote -n "transmission:transmission" -S'
 alias tstartall='transmission-remote -n "transmission:transmission" -s'
 alias tadd='transmission-remote -n "transmission:transmission" -a'
+
+# Ngrok
+alias ngrok-h='$ZDOTDIR/scripts/ngrok http'
+alias ngrok-sh='$ZDOTDIR/scripts/ngrok http -auth "admin:admin"'
+alias ngrok-tcp='$ZDOTDIR/scripts/ngrok tcp'
+
+# Git Leaks
+alias gitleaks='$ZDORDIR/scripts/gitleaks'
+alias gitleaks-u='$ZDOTDIR/scripts/gitleaks -u'
+alias gitleaks-org='$ZDOTDIR/scripts/gitleaks -o'
+
+# Quick Scan
+alias quick-scan='$ZDOTDIR/scripts/quick-scan.sh'
+
+# Tmux session
+alias tm-save='echo "Saving.." && $ZDOTDIR/scripts/tmux-session save'
+alias tm-restore='echo "Restoring.." && $ZDOTDIR/scripts/tmux-session restore'
