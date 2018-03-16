@@ -88,6 +88,9 @@ gcomp() {
     git add . && git commit -m "$@" && git push
 }
 
+# Open ports
+alias ports-o='sudo lsof -i -P -n | grep LISTEN'
+
 # Transmission (Assuming username and password = transmission
 alias tlist='transmission-remote -n "transmission:transmission" -l'
 alias tstats='transmission-remote -n "transmission:transmission" -st'
