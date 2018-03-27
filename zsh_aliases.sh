@@ -2,6 +2,12 @@
 alias fucking='sudo'
 alias reload='echo "Reloading ZSH file now..." && source $ZDOTDIR/.zshrc'
 alias githubUpdate='upgrade_zsh' // Updates zsh from github
+alias sudo='sudo ' // So can run aliases with sudo
+
+# General
+alias ping='ping -c 5'
+alias drives='df -h'
+alias c='clear'
 
 # Custom Vim
 alias vimInstall='echo "Installing custom vim config" && sh -c "$(curl -fsSL https://raw.githubusercontent.com/XeliteXirish/Vim-Configs/master/install.sh)"'
@@ -118,3 +124,6 @@ alias tm-restore='echo "Restoring.." && $ZDOTDIR/scripts/tmux-session restore'
 
 # Update all apt keys
 alias update-keys='$ZDOTDIR/scripts/updateKeys.sh'
+
+# Plex Bot
+alias plexbot='sudo $ZDOTDIR/scripts/plexbot.sh'
