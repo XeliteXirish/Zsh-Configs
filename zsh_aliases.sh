@@ -52,6 +52,7 @@ alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 ## get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+alias service-status='sudo services --status-all'
 
 ## Get server cpu info ##
 alias cpuinfo='lscpu'
@@ -127,3 +128,6 @@ alias update-keys='$ZDOTDIR/scripts/updateKeys.sh'
 
 # Plex Bot
 alias plexbot='sudo $ZDOTDIR/scripts/plexbot.sh'
+
+# Imgur Uploader
+alias upload='$ZDOTDIR/scripts/imgur.sh'
