@@ -131,3 +131,6 @@ alias plexbot='sudo $ZDOTDIR/scripts/plexbot.sh'
 
 # Imgur Uploader
 alias upload='$ZDOTDIR/scripts/imgur.sh'
+
+# Speed Test
+alias speedtest='$ZDOTDIR/scripts/speedtest-cli'
