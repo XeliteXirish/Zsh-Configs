@@ -1,6 +1,8 @@
 #!/bin/bash
 
 apikey="ea6c0ef2987808e"
+GREEN="\033[0;32m"
+RED="\033[0;31m"
 
 # function to output usage instructions
 function usage {
@@ -66,10 +68,10 @@ while [ $# -gt 0 ]; do
 
     # parse the response and output our stuff
     url=$(echo $response | sed -r 's/.*<link>(.*)<\/link>.*/\1/')
- deleteurl="http://i.imgur.com/delete/$(echo $response |\
+    deleteurl="http://i.imgur.com/delete/$(echo $response |\
  sed -r 's/.*<deletehash>(.*)<\/deletehash>.*/\1/')"
-    echo $url
-    echo "Delete page: $deleteurl" >&2
+    echo -e "\n${GREEN}$url"
+    echo -e "${RED}Delete page: $deleteurl" >&2
 
     # append the URL to a string so we can put them all on the clipboard later
     clip="$clip$url

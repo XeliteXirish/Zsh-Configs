@@ -1,7 +1,7 @@
 # Had to be done
 alias fucking='sudo'
 alias reload='echo "Reloading ZSH file now..." && source $ZDOTDIR/.zshrc'
-alias githubUpdate='upgrade_zsh' // Updates zsh from github
+alias zsh-update='upgrade_zsh' // Updates zsh from github
 alias sudo='sudo ' // So can run aliases with sudo
 
 # General
