@@ -134,3 +134,8 @@ alias upload='$ZDOTDIR/scripts/imgur.sh'
 
 # Speed Test
 alias speedtest='$ZDOTDIR/scripts/speedtest-cli'
+
+# Asciinema
+alias asciinema='python3 -m asciinema'
+alias record='python3 -m asciinema rec'
+alias play='python3 -m asciinema play'
