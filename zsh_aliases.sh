@@ -139,3 +139,7 @@ alias speedtest='$ZDOTDIR/scripts/speedtest-cli'
 alias asciinema='python3 -m asciinema'
 alias record='python3 -m asciinema rec'
 alias play='python3 -m asciinema play'
+
+# YT Downloader
+alias ytdl='$ZDOTDIR/scripts/youtube-dl --external-downloader axel --external-downloader-args "-n 10 -a" --add-metadata --geo-bypass'
+
