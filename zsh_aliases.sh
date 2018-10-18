@@ -29,7 +29,7 @@ alias cp='cp -i'
 alias ln='ln -i'
 
 if ! type "trash" > /dev/null; then
-  alias rm=trash
+  alias rm="trash"
 else
   alias rm='rm -i'
 fi
