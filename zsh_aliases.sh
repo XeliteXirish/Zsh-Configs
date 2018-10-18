@@ -27,7 +27,12 @@ alias rm='rm -I --preserve-root'
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
-alias rm='rm -i'
+
+if ! type "trash" > /dev/null; then
+  alias rm="trash"
+else
+  alias rm='rm -i'
+fi
 
 # Parenting changing perms on / #
 alias chown='chown --preserve-root'
