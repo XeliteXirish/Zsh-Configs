@@ -3,7 +3,8 @@
 # Created by Shaun O'Neill (XeliteXirish)
 # https://www.shaunoneill.com - https://github.com/XeliteXirish
 
-apikey="ea6c0ef2987808e"
+#API Key normally stored in zsh_configs!
+#apikey=""
 
 NORMAL="\033[0m"
 GREEN="\033[0;32m"
