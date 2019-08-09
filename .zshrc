@@ -149,7 +149,7 @@ done
 #Adds auto upgrade system
 source $ZDOTDIR/zshupdate
 
-if [ -x "(command -v screenfetch)"] then
+if [ -x "(command -v screenfetch)"]; then
     screenfetch;
 fi
 
