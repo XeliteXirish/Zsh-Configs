@@ -4,6 +4,16 @@
 # Support 256 color
 export TERM="xterm-256color"
 
+# Allow us to check the OS at a later time
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+
 #Checks for $ZDOTDIR
 if [[ -z $ZDOTDIR ]]; then
     export ZDOTDIR=$HOME
@@ -29,6 +39,7 @@ if [ ! -d $ZSH ]; then
     printf "${blu}Installing oh-my-zsh...${norm}\n"
     git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH &> /dev/null
     git clone https://github.com/bhilburn/powerlevel9k.git $ZSH_CUSTOM/themes/powerlevel9k &> /dev/null
+    git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k &> /dev/null
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting &> /dev/null
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions &> /dev/null
     printf "${blu}Done installing oh-my-zsh${norm}\n"
@@ -79,7 +90,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitfast npm python sudo colored-man-pages command-not-found zsh-autosuggestions zsh-syntax-highlighting wd)
+plugins=(gitfast sudo colored-man-pages command-not-found zsh-autosuggestions zsh-syntax-highlighting wd)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -138,7 +149,9 @@ done
 #Adds auto upgrade system
 source $ZDOTDIR/zshupdate
 
-screenfetch;
+if [ -x "(command -v screenfetch)"] then
+    screenfetch;
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -149,5 +162,10 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # Per User Configs
 source $ZDOTDIR/zsh_configs.sh
 
-# My aliases
-source $ZDOTDIR/zsh_aliases.sh
+# Alias's depending on OS
+if [ $machine = "Linux" ]; then 
+    source $ZDOTDIR/alias/linux.sh
+
+elif [ $machine = "Mac" ]; then 
+    source $ZDOTDIR/alias/mac.sh
+fi

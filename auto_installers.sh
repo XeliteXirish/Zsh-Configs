@@ -10,6 +10,3 @@ fi
 packages="pm2 pageres-cli trash-cli"
 
 npm i -g $packages
-
-# Krypton
-curl https://krypt.co/kr | sh
