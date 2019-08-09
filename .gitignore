@@ -1,5 +1,4 @@
 #Ignores everything
-*
 
 #ZSH Files
 !.zshrc
