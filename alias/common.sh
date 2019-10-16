@@ -16,12 +16,6 @@ cdm() {
     mkdir "$@" && cd "$@" 
 }
 
-if ! type "trash" > /dev/null; then
-  alias rm="trash"
-else
-  alias rm='rm -i'
-fi
-
 # Nginx
 alias nginxreload='sudo /usr/local/nginx/sbin/nginx -s reload'
 alias nginxtest='sudo /usr/local/nginx/sbin/nginx -t'
