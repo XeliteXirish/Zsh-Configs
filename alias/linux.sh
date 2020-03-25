@@ -22,9 +22,3 @@ alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 
 alias ports='netstat -tulanp'
 alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers'
-
-if ! type "trash" > /dev/null; then
-  alias rm="trash"
-else
-  alias rm='rm -i'
-fi

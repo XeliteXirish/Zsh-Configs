@@ -76,15 +76,9 @@ alias gitleaks='$ZDOTDIR/scripts/gitleaks'
 alias gitleaks-u='$ZDOTDIR/scripts/gitleaks -u'
 alias gitleaks-org='$ZDOTDIR/scripts/gitleaks -o'
 
-# Quick Scan
-alias quick-scan='$ZDOTDIR/scripts/quick-scan.sh'
-
 # Tmux session
 alias tm-save='echo "Saving.." && $ZDOTDIR/scripts/tmux-session save'
 alias tm-restore='echo "Restoring.." && $ZDOTDIR/scripts/tmux-session restore'
-
-# Plex Bot
-alias plexbot='sudo $ZDOTDIR/scripts/plexbot.sh'
 
 # Imgur Uploader
 alias upload='$ZDOTDIR/scripts/imgur.sh'
@@ -99,4 +93,3 @@ alias play='python3 -m asciinema play'
 
 # YT Downloader
 alias ytdl='$ZDOTDIR/scripts/youtube-dl --external-downloader axel --external-downloader-args "-n 10 -a" --add-metadata --geo-bypass'
-
