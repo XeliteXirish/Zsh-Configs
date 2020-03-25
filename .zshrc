@@ -90,7 +90,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(gitfast sudo colored-man-pages command-not-found zsh-autosuggestions zsh-syntax-highlighting wd)
+plugins=(sudo colored-man-pages command-not-found zsh-autosuggestions zsh-syntax-highlighting wd)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -120,6 +120,7 @@ export EDITOR='vim'
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+
 #Plugin and theme setup
 POWERLEVEL9K_STATUS_VERBOSE=false
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
@@ -147,7 +148,7 @@ do
 done
 
 #Adds auto upgrade system
-source $ZDOTDIR/zshupdate
+source $ZDOTDIR/zshupdate.sh
 
 if [ -x "(command -v screenfetch)" ]; then
     screenfetch;
@@ -158,9 +159,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$HOME/.yarn/bin:$PATH"
-
-# Per User Configs
-source $ZDOTDIR/zsh_configs.sh
 
 # Alias's depending on OS and common
 source $ZDOTDIR/alias/common.sh
