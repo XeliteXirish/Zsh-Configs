@@ -159,9 +159,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.yarn/bin:$PATH"
 
-# Per User Configs
-source $ZDOTDIR/zsh_configs.sh
-
 # Alias's depending on OS and common
 source $ZDOTDIR/alias/common.sh
 
