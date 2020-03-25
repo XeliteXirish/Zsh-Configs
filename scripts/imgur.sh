@@ -1,110 +1,92 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# API Key provided
-default_client_id=c9a6efb3d7932fd
-client_id="${IMGUR_CLIENT_ID:=$default_client_id}"
+# Created by Shaun O'Neill (XeliteXirish)
+# https://www.shaunoneill.com - https://github.com/XeliteXirish
 
-# Function to output usage instructions
+#API Key normally stored in zsh_configs!
+#apikey=""
+
+NORMAL="\033[0m"
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+
+# Output usage instructions
 function usage {
-	echo "Usage: $(basename $0) [<filename|URL> [...]]" >&2
-	echo
-	echo "Upload images to imgur and output their new URLs to stdout. Each one's" >&2
-	echo "delete page is output to stderr between the view URLs." >&2
-	echo
-	echo "A filename can be - to read from stdin. If no filename is given, stdin is read." >&2
-	echo
-	echo "If xsel, xclip, or pbcopy is available, the URLs are put on the X selection for" >&2
-	echo "easy pasting." >&2
+    echo "Usage: $(basename $0) <filename> [<filename> [...]]" >&2
+    echo "Upload images to imgur and output their new URLs to the console." >&2
+    echo "The delete page url is outputed to the console aswell." >&2
+    echo "If xsel or xclip is available, the URLs are put in the console" >&2
 }
 
-# Function to upload a path
-# First argument should be a content spec understood by curl's -F option
-function upload {
-	curl -s -H "Authorization: Client-ID $client_id" -H "Expect: " -F "image=$1" https://api.imgur.com/3/image.xml
-	# The "Expect: " header is to get around a problem when using this through
-	# the Squid proxy. Not sure if it's a Squid bug or what.
-}
+# Check the API key has been entered
+if [ "$apikey" = "Your API key" ]; then
+    echo "You first need to edit this script and put your API key in the variable near the top." >&2
+    exit 15
+fi
 
 # Check arguments
-if [ "$1" == "-h" -o "$1" == "--help" ]; then
-	usage
-	exit 0
-elif [ $# -eq 0 ]; then
-	echo "No file specified; reading from stdin" >&2
-	exec "$0" -
+if [ "$1" = "-h" -o "$1" = "--help" ]; then
+    usage
+    exit 0
+elif [ $# == 0 ]; then
+    echo "No file specified" >&2
+    usage
+    exit 16
 fi
 
 # Check curl is available
-type curl &>/dev/null || {
-	echo "Couldn't find curl, which is required." >&2
-	exit 17
+type curl >/dev/null 2>/dev/null || {
+    echo "Couln't find curl, which is required." >&2
+    exit 17
 }
 
 clip=""
 errors=false
 
-# Loop through arguments
+# Loop through arguments, so all files are uploaded
 while [ $# -gt 0 ]; do
-	file="$1"
-	shift
+    file="$1"
+    shift
 
-	# Upload the image
-	if [[ "$file" =~ ^https?:// ]]; then
-		# URL -> imgur
-		response=$(upload "$file") 2>/dev/null
-	else
-		# File -> imgur
-		# Check file exists
-		if [ "$file" != "-" -a ! -f "$file" ]; then
-			echo "File '$file' doesn't exist; skipping" >&2
-			errors=true
-			continue
-		fi
-		response=$(upload "@$file") 2>/dev/null
-	fi
+    if [ ! -f "$file" ]; then
+        echo "File '$file' doesn't exist, skipping" >&2
+        errors=true
+        continue
+    fi
+    echo "Uploading image.. please wait"
 
-	if [ $? -ne 0 ]; then
-		echo "Upload failed" >&2
-		errors=true
-		continue
-	elif echo "$response" | grep -q 'success="0"'; then
-		echo "Error message from imgur:" >&2
-		msg="${response##*<error>}"
-		echo "${msg%%</error>*}" >&2
-		errors=true
-		continue
-	fi
+    # Upload the image
+    response=$(curl -s -H "Authorization: Client-ID $apikey" -F "image=@$file" \https://api.imgur.com/3/upload.xml)
+            
+    if [ $? -ne 0 ]; then
+        echo "Upload failed" >&2
+        errors=true
+        continue
+    elif [ $(echo $response | grep -c "<error_msg>") -gt 0 ]; then
+        echo "Error message from imgur:" >&2
+        echo $response | sed -r 's/.*<error_msg>(.*)<\/error_msg>.*/\1/' >&2
+        errors=true
+        continue
+    fi
 
-	# Parse the response and output our stuff
-	url="${response##*<link>}"
-	url="${url%%</link>*}"
-	delete_hash="${response##*<deletehash>}"
-	delete_hash="${delete_hash%%</deletehash>*}"
-	echo $url | sed 's/^http:/https:/'
-	echo "Delete page: https://imgur.com/delete/$delete_hash" >&2
+    # Parse the response
+    url=$(echo $response | sed -r 's/.*<link>(.*)<\/link>.*/\1/')
+    deleteurl="http://i.imgur.com/delete/$(echo $response |\
+ sed -r 's/.*<deletehash>(.*)<\/deletehash>.*/\1/')"
+    echo -e "\n${GREEN}$url"
+    echo -e "${NORMAL}Delete page: ${RED}$deleteurl" >&2
 
-	# Append the URL to a string so we can put them all on the clipboard later
-	clip+="$url"
-	if [ $# -gt 0 ]; then
-		clip+=$'\n'
-	fi
+    # Append the URL to a string so we can put them all on the clipboard later
+    clip="$clip$url"
 done
 
-# Put the URLs on the clipboard if we can
-if type pbcopy &>/dev/null; then
-	echo -n "$clip" | pbcopy
-elif [ $DISPLAY ]; then
-	if type xsel &>/dev/null; then
-		echo -n "$clip" | xsel -i
-	elif type xclip &>/dev/null; then
-		echo -n "$clip" | xclip
-	else
-		echo "Haven't copied to the clipboard: no xsel or xclip" >&2
-	fi
-else
-	echo "Haven't copied to the clipboard: no \$DISPLAY or pbcopy" >&2
+# Put the URLs on the clipboard if xsel or xclip is available
+if [ $DISPLAY ]; then
+    { type xsel >/dev/null 2>/dev/null && echo -n $clip | xsel; } \
+        || { type xclip >/dev/null 2>/dev/null && echo -n $clip | xclip; } \
+        || echo "Haven't copied to the clipboard: no xsel or xclip" >&2
 fi
 
 if $errors; then
-	exit 1
+    exit 1
 fi
