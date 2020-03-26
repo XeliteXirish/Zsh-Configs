@@ -67,21 +67,16 @@ alias tstartall='transmission-remote -n "transmission:transmission" -s'
 alias tadd='transmission-remote -n "transmission:transmission" -a'
 
 # Ngrok
-alias ngrok-h='$ZDOTDIR/scripts/ngrok http'
-alias ngrok-sh='$ZDOTDIR/scripts/ngrok http -auth "admin:admin"'
-alias ngrok-tcp='$ZDOTDIR/scripts/ngrok tcp'
-
-# Git Leaks
-alias gitleaks='$ZDOTDIR/scripts/gitleaks'
-alias gitleaks-u='$ZDOTDIR/scripts/gitleaks -u'
-alias gitleaks-org='$ZDOTDIR/scripts/gitleaks -o'
+alias ngrok-h='$ZDOTDIR/bin/ngrok http'
+alias ngrok-sh='$ZDOTDIR/bin/ngrok http -auth "admin:admin"'
+alias ngrok-tcp='$ZDOTDIR/bin/ngrok tcp'
 
 # Tmux session
-alias tm-save='echo "Saving.." && $ZDOTDIR/scripts/tmux-session save'
-alias tm-restore='echo "Restoring.." && $ZDOTDIR/scripts/tmux-session restore'
+alias tm-save='echo "Saving.." && $ZDOTDIR/bin/tmux-session save'
+alias tm-restore='echo "Restoring.." && $ZDOTDIR/bin/tmux-session restore'
 
 # Imgur Uploader
-alias upload='$ZDOTDIR/scripts/imgur.sh'
+alias upload='$ZDOTDIR/bin/imgur.sh'
 
 # YT Downloader
-alias ytdl='$ZDOTDIR/scripts/youtube-dl --external-downloader axel --external-downloader-args "-n 10 -a" --add-metadata --geo-bypass'
+alias ytdl='$ZDOTDIR/bin/youtube-dl --external-downloader axel --external-downloader-args "-n 10 -a" --add-metadata --geo-bypass'
