@@ -1,9 +1,16 @@
+# Run screenfetch if installed
+if [ -x "(command -v screenfetch)" ]; then
+    screenfetch;
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+# From this point on, until zsh is fully initialized, console input won't work and
+# console output may appear uncolored.
 
 # Support 256 color
 export TERM="xterm-256color"
@@ -158,9 +165,4 @@ if [ $machine = "Linux" ]; then
 
 elif [ $machine = "Mac" ]; then 
     source $ZDOTDIR/alias/mac.sh
-fi
-
-# Run screenfetch if installed
-if [ -x "(command -v screenfetch)" ]; then
-    screenfetch;
 fi
