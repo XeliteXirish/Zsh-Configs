@@ -1,5 +1,8 @@
+# This fixes oh-my-zsh
+ZSH_DISABLE_COMPFIX=true
+
 # This sets the users umask
 umask 0027
 
 # set PATH so it includes user's private bin directories
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.zsh/bin

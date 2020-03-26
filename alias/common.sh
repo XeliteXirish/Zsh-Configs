@@ -1,7 +1,6 @@
 # Had to be done
 alias fucking='sudo'
 alias reload='echo "Reloading ZSH file now..." && source $ZDOTDIR/.zshrc'
-alias zsh-update='upgrade_zsh' // Updates zsh from github
 
 # General
 alias ping='ping -c 5'
@@ -12,6 +11,7 @@ alias c='clear'
 alias vimInstall='echo "Installing custom vim config" && sh -c "$(curl -fsSL https://raw.githubusercontent.com/realshaunoneill/Vim-Configs/master/install.sh)"'
 alias vimUpdate='echo "Updating custom Vim Config" && cd $HOME/.vim && git pull'
 
+# Create and move into a new directory
 cdm() {
     mkdir "$@" && cd "$@" 
 }
@@ -82,14 +82,6 @@ alias tm-restore='echo "Restoring.." && $ZDOTDIR/scripts/tmux-session restore'
 
 # Imgur Uploader
 alias upload='$ZDOTDIR/scripts/imgur.sh'
-
-# Speed Test
-alias speedtest='$ZDOTDIR/scripts/speedtest-cli'
-
-# Asciinema
-alias asciinema='python3 -m asciinema'
-alias record='python3 -m asciinema rec'
-alias play='python3 -m asciinema play'
 
 # YT Downloader
 alias ytdl='$ZDOTDIR/scripts/youtube-dl --external-downloader axel --external-downloader-args "-n 10 -a" --add-metadata --geo-bypass'

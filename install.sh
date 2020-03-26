@@ -14,6 +14,7 @@ if [ $machine = "Linux" ]; then
 echo "Running installation for Linux...."
 
     sudo apt install zsh screenfetch
+    
     touch $HOME/.zsh && touch $HOME/.zcompdump
     rm -rf $HOME/.zsh* && rm -rf $HOME/.zcompdump*
     git clone https://github.com/realshaunoneill/Zsh-Configs.git $HOME/.zsh

@@ -1,28 +1,12 @@
-# If you come from bash you might have to change your $PATH.
-#export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block, everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # Support 256 color
 export TERM="xterm-256color"
-
-# Allow us to check the OS at a later time
-unameOut="$(uname -s)"
-case "${unameOut}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    CYGWIN*)    machine=Cygwin;;
-    MINGW*)     machine=MinGw;;
-    *)          machine="UNKNOWN:${unameOut}"
-esac
-
-#Checks for $ZDOTDIR
-if [[ -z $ZDOTDIR ]]; then
-    export ZDOTDIR=$HOME
-fi
-
-#Imports Extra settings
-if [ -f $ZDOTDIR/.zshextrasettings ]; then
-    source $ZDOTDIR/.zshextrasettings
-fi
 
 #Exports full range of colors
 blu="$(tput setaf 4)"
@@ -38,7 +22,6 @@ ZSH_CUSTOM=$ZDOTDIR/custom
 if [ ! -d $ZSH ]; then
     printf "${blu}Installing oh-my-zsh...${norm}\n"
     git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH &> /dev/null
-    git clone https://github.com/bhilburn/powerlevel9k.git $ZSH_CUSTOM/themes/powerlevel9k &> /dev/null
     git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k &> /dev/null
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting &> /dev/null
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions &> /dev/null
@@ -49,7 +32,6 @@ fi
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-#ZSH_THEME="random"
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="false"
@@ -74,7 +56,7 @@ export UPDATE_ZSH_DAYS=10
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
- COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -90,7 +72,12 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo colored-man-pages command-not-found zsh-autosuggestions zsh-syntax-highlighting wd)
+plugins=(git sudo rsync zsh-autosuggestions zsh-syntax-highlighting wd)
+
+extra_plugins=$ZDOTDIR/.zshplugins
+if [ -f $extra_plugins ];  then
+    source $extra_plugins
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -121,43 +108,47 @@ export EDITOR='vim'
 # For a full list of active aliases, run `alias`.
 #
 #Plugin and theme setup
-POWERLEVEL9K_STATUS_VERBOSE=false
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status dir_writable rbenv virtualenv ram time)
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=("fg=6")
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
+#.zshrc addons
+addon=$ZDOTDIR/.zshaddons
+if [ -f $addon ]; then
+    source $addon
+fi
 
 #Aliases
 alias zshconfig="$EDITOR $ZDOTDIR/.zshrc"
 alias ohmyzsh="$EDITOR $ZSH"
-
-#.zshrc addons
-addons=(.zshaddons)
-for addon in ${addons[@]}
-do
-    ADDON=$ZDOTDIR/$addon
-    if [ -f $ADDON ]; then
-        printf "${blu}Loading ZSH addon: $ADDON${norm}\n"
-        source $ADDON
-    fi
-done
+alias zreconf="source $ZDOTDIR/.zshsetup"
+alias zreset="cd ~ && sh -c '$(curl -fsSL https://raw.githubusercontent.com/realshaunoneill/Zsh-Configs/master/install.sh)'"
 
 #Adds auto upgrade system
-source $ZDOTDIR/zshupdate.sh
+source $ZDOTDIR/.zshupgrade
 
-if [ -x "(command -v screenfetch)" ]; then
-    screenfetch;
-fi
+# Setup
+[[ ! -f ~/.zsh/.p10k.zsh ]] && source $ZDOTDIR/.zshsetup
+
+# To customize prompt, run `p10k configure` or edit ~/.zsh/.p10k.zsh.
+[[ -f ~/.zsh/.p10k.zsh ]] && source ~/.zsh/.p10k.zsh
+
+# OS Specific Configs
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$HOME/.yarn/bin:$PATH"
+
+# Allow us to check the OS at a later time
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
 
 # Alias's depending on OS and common
 source $ZDOTDIR/alias/common.sh
@@ -167,4 +158,9 @@ if [ $machine = "Linux" ]; then
 
 elif [ $machine = "Mac" ]; then 
     source $ZDOTDIR/alias/mac.sh
+fi
+
+# Run screenfetch if installed
+if [ -x "(command -v screenfetch)" ]; then
+    screenfetch;
 fi
